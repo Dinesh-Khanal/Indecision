@@ -1,0 +1,19 @@
+// option error texxt
+.add-option-error{
+    color: $off-white;
+    font-style: italic;
+    padding: 0 $m-size;
+}
+
+.add-option{
+    display: flex;
+    padding: $m-size;
+}
+
+.add-option__input{
+    background-color: $dark-blue;
+    color: $off-white;
+    flex-grow: 1;
+    margin-right: $s-size;
+    padding: $s-size;
+}

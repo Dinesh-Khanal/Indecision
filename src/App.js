@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import './styles/App.scss';
+import Header from './components/Header';
+import Action from './components/Action';
+import Options from './components/Options';
+import AddOption from './components/AddOption';
 
 function App() {
+  const[opt, setOpt] = useState({
+    options: [],
+    selectedOption: undefined
+  });
+
+  const handleAddOption = (option) =>{
+    if(!option){
+      return "Enter valid value to add item";
+    }else if(opt.options.indexOf(option) > -1){
+      return "This option already exitsts";
+    }
+    setOpt((opt) =>({options:opt.options.concat(option)}));
+  }
+  const handleRemoveAll =() =>{
+    setOpt({options:[]});
+  }
+  const handleRemove =(optDel) =>{
+    setOpt({options:opt.options.filter(option =>
+      (option !== optDel))})
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div className="container">
+      <Action />
+      <div className="widget">
+        <Options
+        options={opt.options}
+        onRemoveAll={handleRemoveAll}
+        onRemove = {handleRemove}
+        />
+        <AddOption addOption={handleAddOption} />
+      </div>
+      </div>
+      
+      
     </div>
   );
 }
+
 
 export default App;
